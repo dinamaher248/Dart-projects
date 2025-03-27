@@ -1,14 +1,18 @@
+import 'package:bmi_calculator/BottomNavigation.dart';
 import 'package:bmi_calculator/Widgets/container.dart';
 import 'package:bmi_calculator/Widgets/containerAge.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+import 'constant/app_router.dart';
+
+class BMIScreen extends StatefulWidget {
+  const BMIScreen({super.key});
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<BMIScreen> createState() => _BMIScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _BMIScreenState extends State<BMIScreen> {
   double value = 100;
   Color color = const Color.fromARGB(213, 24, 27, 72);
   String? selectedGender;
@@ -18,9 +22,11 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 1, 4, 52),
       appBar: AppBar(
-          title: const Text(
-            "BMI Calculator",
-            style: TextStyle(color: Colors.white),
+          title: const Center(
+            child: Text(
+              "BMI Calculator",
+              style: TextStyle(color: Colors.white),
+            ),
           ),
           backgroundColor: const Color.fromARGB(255, 1, 4, 52)),
       body: SingleChildScrollView(
@@ -41,7 +47,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: ContainerGenderWidget(
                       icon: Icons.male,
                       gender: "Male",
-                      color: selectedGender == "Male" ? Colors.pink : color,
+                      color: selectedGender == "Male"
+                          ? const Color.fromARGB(255, 2, 44, 79)
+                          : color,
                     )),
                 InkWell(
                   onTap: () {
@@ -116,22 +124,28 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(
               height: 20,
             ),
-            Container(
-              width: double.infinity,
-              height: 40,
-              decoration: const BoxDecoration(
-                color: Color.fromARGB(255, 225, 12, 69),
-              ),
-              child: const Center(
-                child: Text(
-                  "Calculate",
-                  style: TextStyle(color: Colors.white, fontSize: 20),
+            InkWell(
+              onTap: () {
+                context.push(AppRouter.bmiscreen2Path);
+              },
+              child: Container(
+                width: double.infinity,
+                height: 40,
+                decoration: const BoxDecoration(
+                  color: Color.fromARGB(255, 225, 12, 69),
+                ),
+                child: const Center(
+                  child: Text(
+                    "Calculate",
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  ),
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),
+      bottomNavigationBar: const Bottomnavigation(),
     );
   }
 }
